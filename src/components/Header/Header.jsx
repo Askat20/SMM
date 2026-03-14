@@ -8,19 +8,31 @@ const Header = () => {
 
   const navLinks = [
     { path: '/', name: 'Главная' },
+    { path: '/catalog', name: 'Каталог' },
     { path: '/about', name: 'О нас' },
     { path: '/contacts', name: 'Контакты' }
   ];
 
+  // Закрываем меню при смене страницы
+  React.useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location]);
+
   return (
     <header className="header">
-      <div className="container header-container">
+      <div className="header-container">
         <Link to="/" className="logo">
-          🍰 Тортики от Кымбата
+          🍰 Тортики
         </Link>
 
-        <button className="menu-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-          ☰
+        <button 
+          className={`menu-toggle ${isMenuOpen ? 'active' : ''}`} 
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label="Меню"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
 
         <nav className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
@@ -29,7 +41,6 @@ const Header = () => {
               key={link.path} 
               to={link.path} 
               className={`nav-link ${location.pathname === link.path ? 'active' : ''}`}
-              onClick={() => setIsMenuOpen(false)}
             >
               {link.name}
             </Link>

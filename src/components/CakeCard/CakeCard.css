@@ -1,83 +1,91 @@
 .cake-card {
   background: white;
-  border-radius: 20px;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
   position: relative;
   height: 100%;
   display: flex;
   flex-direction: column;
-  margin-bottom: 15px;
-}
-
-.cake-card:active {
-  transform: scale(0.98);
-  box-shadow: 0 8px 25px rgba(255,107,107,0.2);
+  margin-bottom: 12px;
 }
 
 .cake-badge {
   position: absolute;
-  top: 12px;
-  right: 12px;
-  background: var(--primary);
+  top: 10px;
+  right: 10px;
+  background: #ff6b6b;
   color: white;
-  padding: 6px 12px;
-  border-radius: 25px;
-  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
   font-weight: bold;
   z-index: 1;
-  box-shadow: 0 3px 8px rgba(255,107,107,0.3);
-  backdrop-filter: blur(5px);
+  box-shadow: 0 2px 5px rgba(255,107,107,0.3);
 }
 
 .cake-image {
-  height: 200px;
+  height: 160px;
   overflow: hidden;
+  background: #f5f5f5;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.cake-image::after {
-  content: '';
+.image-loader {
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
   right: 0;
-  height: 30px;
-  background: linear-gradient(to top, white, transparent);
+  bottom: 0;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+.image-error {
+  font-size: 48px;
+  color: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
 .cake-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.cake-card:active .cake-image img {
-  transform: scale(1.05);
 }
 
 .cake-content {
-  padding: 16px;
+  padding: 12px;
   flex: 1;
   display: flex;
   flex-direction: column;
 }
 
 .cake-title {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
-  color: var(--dark);
-  margin-bottom: 6px;
+  color: #2d3436;
+  margin-bottom: 5px;
   line-height: 1.3;
 }
 
 .cake-description {
-  color: var(--text-light);
-  font-size: 13px;
-  line-height: 1.5;
-  margin-bottom: 15px;
+  color: #636e72;
+  font-size: 12px;
+  line-height: 1.4;
+  margin-bottom: 12px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -88,88 +96,51 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 12px;
-  border-top: 1px solid var(--gray);
+  padding-top: 10px;
+  border-top: 1px solid #dfe6e9;
   margin-top: auto;
 }
 
 .cake-weight {
-  color: var(--text-light);
-  font-size: 13px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
+  color: #636e72;
+  font-size: 12px;
 }
 
 .cake-price {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
-  color: var(--primary);
+  color: #ff6b6b;
 }
 
-/* Мобильная версия */
-@media (max-width: 768px) {
-  .cake-image {
-    height: 180px;
-  }
-  
-  .cake-content {
-    padding: 14px;
-  }
-  
-  .cake-title {
-    font-size: 17px;
-  }
-  
-  .cake-price {
-    font-size: 18px;
-  }
-}
-
-@media (max-width: 480px) {
+/* Планшеты */
+@media (min-width: 769px) {
   .cake-card {
-    border-radius: 16px;
-    margin-bottom: 12px;
+    border-radius: 20px;
+    margin-bottom: 0;
   }
   
   .cake-image {
-    height: 160px;
-  }
-  
-  .cake-badge {
-    top: 10px;
-    right: 10px;
-    padding: 4px 10px;
-    font-size: 11px;
+    height: 200px;
   }
   
   .cake-content {
-    padding: 12px;
+    padding: 16px;
   }
   
   .cake-title {
-    font-size: 16px;
+    font-size: 18px;
   }
   
   .cake-description {
-    font-size: 12px;
-    margin-bottom: 12px;
-  }
-  
-  .cake-details {
-    padding-top: 10px;
-  }
-  
-  .cake-weight {
-    font-size: 12px;
+    font-size: 13px;
   }
   
   .cake-price {
-    font-size: 17px;
+    font-size: 20px;
   }
 }
 
-@media (max-width: 360px) {
+@media (max-width: 380px) {
   .cake-image {
     height: 140px;
   }
