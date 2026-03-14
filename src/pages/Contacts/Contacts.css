@@ -1,0 +1,176 @@
+.contacts-page {
+  padding: 20px 0;
+}
+
+.contacts-content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.contact-info,
+.social-section {
+  background: white;
+  padding: 25px;
+  border-radius: 25px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  margin-bottom: 20px;
+}
+
+.contact-info h2,
+.social-section h2 {
+  color: var(--dark);
+  margin-bottom: 20px;
+  font-size: 22px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.contact-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--gray);
+}
+
+.contact-item:last-child {
+  border-bottom: none;
+}
+
+.contact-label {
+  font-weight: 600;
+  color: var(--dark);
+  font-size: 15px;
+}
+
+.contact-item span:last-child {
+  color: var(--text-light);
+  font-size: 15px;
+}
+
+.social-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.social-btn {
+  padding: 12px 25px;
+  background: var(--light);
+  color: var(--dark);
+  text-decoration: none;
+  border-radius: 30px;
+  transition: all 0.2s;
+  border: 2px solid transparent;
+  font-size: 15px;
+  font-weight: 500;
+  flex: 1;
+  text-align: center;
+  min-width: 120px;
+}
+
+.social-btn:active {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Мобильная версия */
+@media (max-width: 768px) {
+  .contact-info,
+  .social-section {
+    padding: 20px;
+    border-radius: 20px;
+  }
+  
+  .contact-info h2,
+  .social-section h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+  
+  .contact-item {
+    padding: 12px 0;
+  }
+  
+  .contact-label {
+    font-size: 14px;
+  }
+  
+  .contact-item span:last-child {
+    font-size: 14px;
+  }
+  
+  .social-buttons {
+    gap: 10px;
+  }
+  
+  .social-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+    min-width: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-info,
+  .social-section {
+    padding: 18px;
+    border-radius: 18px;
+    margin-bottom: 15px;
+  }
+  
+  .contact-info h2,
+  .social-section h2 {
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+  
+  .contact-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 5px;
+    padding: 10px 0;
+  }
+  
+  .contact-label {
+    font-size: 14px;
+  }
+  
+  .contact-item span:last-child {
+    font-size: 14px;
+  }
+  
+  .social-buttons {
+    flex-direction: column;
+  }
+  
+  .social-btn {
+    padding: 12px 20px;
+    font-size: 15px;
+    min-width: auto;
+  }
+}
+
+@media (max-width: 360px) {
+  .contact-info,
+  .social-section {
+    padding: 15px;
+  }
+  
+  .contact-info h2,
+  .social-section h2 {
+    font-size: 17px;
+  }
+  
+  .contact-label,
+  .contact-item span:last-child {
+    font-size: 13px;
+  }
+  
+  .social-btn {
+    padding: 10px 18px;
+    font-size: 14px;
+  }
+}
