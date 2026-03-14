@@ -56,7 +56,6 @@
   border-top: 1px solid var(--gray);
 }
 
-/* Мобильная версия */
 @media (max-width: 768px) {
   .footer {
     padding-top: 25px;

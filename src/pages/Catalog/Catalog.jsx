@@ -50,7 +50,29 @@ const cakes = [
     image: 'https://aleksandratort.ru/wp-content/uploads/2023/02/krasn_barhat.jpg',
     weight: '1.5 кг',
     popular: false
-  }
+  },
+  {
+    id: 6,
+    name: 'Рулет классический',
+    description: 'Мягкий бисквит, сливочный крем',
+    price: 700,
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMzmcXtKqc35wLpz3voxY5tPsjnxM465Rmhg&s',
+    weight: '1 кг',
+    popular: false,
+    noDecor: true // Добавляем флаг, что у этого товара нет декора
+  },
+  {
+  id: 7,
+  name: 'Капкейки (ванильные и шоколадные)',
+  description: 'Ванильные и шоколадные бисквиты, крем из творожного сыра: внутри - на сливках (нежный), сверху - на масле (плотный)',
+  price: 180,
+  image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGVs5v68QburQ4EDv4XfYYdSDXpHvWqW0A-g&s',
+  weight: '1 шт',
+  popular: true,
+  minOrder: 8,
+  priceFor8: 1440,
+  note: 'Можно выбрать любые вкусы в ассортименте'
+}
 ];
 
 const Catalog = () => {

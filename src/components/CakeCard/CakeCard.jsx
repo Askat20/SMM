@@ -11,6 +11,10 @@ const CakeCard = ({ cake }) => {
   // Разбиваем описание на состав
   const ingredients = cake.description.split(',').map(item => item.trim());
 
+  // Проверяем, является ли товар рулетом или капкейками (по цене или названию)
+  const isRoll = cake.price < 1000 || cake.name.toLowerCase().includes('рулет');
+  const isCupcake = cake.name.toLowerCase().includes('капкейк');
+
   return (
     <>
       <div className="cake-card">
@@ -41,7 +45,16 @@ const CakeCard = ({ cake }) => {
             <span className="cake-weight">⚖️ {cake.weight}</span>
             <span className="cake-price">{cake.price} ₽</span>
           </div>
-          <p className="decor-note">🎂 Декор оплачивается отдельно</p>
+          
+          {/* Информация о минимальном заказе для капкейков */}
+          {isCupcake && (
+            <p className="min-order-note">
+              📦 Мин. заказ: 8 шт (1440 ₽)
+            </p>
+          )}
+          
+          {/* Показываем декор только для тортов (не рулетов и не капкейков) */}
+          {!isRoll && !isCupcake && <p className="decor-note">🎂 Декор оплачивается отдельно</p>}
         </div>
       </div>
 
@@ -75,14 +88,28 @@ const CakeCard = ({ cake }) => {
                 <div className="modal-info">
                   <p><strong>Вес:</strong> <span>{cake.weight}</span></p>
                   <p><strong>Цена:</strong> <span>{cake.price} ₽</span></p>
-                  <p><strong>Категория:</strong> <span>{cake.category}</span></p>
                 </div>
               </div>
 
-              <div className="modal-section">
-                <h3>🎨 Декор:</h3>
-                <p className="decor-info">Декор торта оплачивается отдельно. Вы можете выбрать любой декор.</p>
-              </div>
+              {/* Информация о минимальном заказе для капкейков */}
+              {isCupcake && (
+                <div className="modal-section">
+                  <h3>📦 Условия заказа:</h3>
+                  <p className="decor-info">
+                    • Минимальный заказ: <strong>8 штук</strong><br />
+                    • Цена за 8 штук: <strong>1440 ₽</strong><br />
+                    • Можно выбрать любые вкусы в ассортименте
+                  </p>
+                </div>
+              )}
+
+              {/* Показываем информацию о декоре ТОЛЬКО для тортов */}
+              {!isRoll && !isCupcake && (
+                <div className="modal-section">
+                  <h3>🎨 Декор:</h3>
+                  <p className="decor-info">Декор торта оплачивается отдельно. Вы можете выбрать любой декор из нашего каталога или заказать индивидуальный.</p>
+                </div>
+              )}
             </div>
 
             <div className="modal-footer">

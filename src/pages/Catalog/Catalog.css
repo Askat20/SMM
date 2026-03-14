@@ -8,7 +8,6 @@
   gap: 20px;
 }
 
-/* Мобильная версия */
 @media (max-width: 768px) {
   .catalog-page {
     padding: 15px 0;
