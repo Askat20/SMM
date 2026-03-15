@@ -56,6 +56,7 @@
   gap: 15px;
   text-decoration: none;
   transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 1001;
 }
 
 .logo:hover {
@@ -71,6 +72,11 @@
     0 0 0 3px rgba(255, 255, 255, 0.3) inset;
   transition: all 0.5s ease;
   animation: premiumFloat 3s infinite;
+}
+
+@keyframes premiumFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
 }
 
 .logo:hover .logo-image {
@@ -92,18 +98,20 @@
   font-family: 'Playfair Display', serif;
 }
 
+/* БУРГЕР МЕНЮ - видно только на мобилках */
 .menu-toggle {
   width: 50px;
   height: 50px;
   position: relative;
   cursor: pointer;
   background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 107, 107, 0.2));
-  border: 2px solid;
-  border-image: linear-gradient(135deg, #FFD700, #FF6B6B) 1;
+  border: 2px solid transparent;
+  border-image: linear-gradient(135deg, #FFD700, #FF6B6B);
+  border-image-slice: 1;
   border-radius: 15px;
   padding: 0;
   z-index: 1001;
-  display: none;
+  display: none; /* Скрыт на десктопе */
   transition: all 0.3s ease;
 }
 
@@ -123,19 +131,23 @@
   box-shadow: 0 0 10px #FFD700;
 }
 
+/* Анимация бургера в крестик */
 .menu-toggle.active span:nth-child(1) {
   transform: rotate(45deg) translate(6px, 6px);
+  width: 28px;
 }
 
 .menu-toggle.active span:nth-child(2) {
   opacity: 0;
-  transform: translateX(-20px);
+  transform: translateX(-10px);
 }
 
 .menu-toggle.active span:nth-child(3) {
   transform: rotate(-45deg) translate(6px, -6px);
+  width: 28px;
 }
 
+/* Навигационное меню - видно на десктопе */
 .nav-menu {
   display: flex;
   gap: 40px;
@@ -153,6 +165,7 @@
   text-transform: uppercase;
   letter-spacing: 2px;
   font-family: 'Playfair Display', serif;
+  white-space: nowrap;
 }
 
 .nav-link::before {
@@ -202,7 +215,7 @@
   text-shadow: 0 0 30px #FFD700;
 }
 
-/* Мобильная версия */
+/* МОБИЛЬНАЯ ВЕРСИЯ - бургер появляется */
 @media (max-width: 768px) {
   .header {
     height: 60px;
@@ -219,12 +232,15 @@
   
   .logo-text {
     font-size: 18px;
+    letter-spacing: 2px;
   }
   
+  /* Показываем бургер */
   .menu-toggle {
     display: block;
   }
   
+  /* Прячем навигацию */
   .nav-menu {
     position: fixed;
     top: 60px;
@@ -242,6 +258,7 @@
     border-top: 2px solid #FFD700;
   }
   
+  /* Показываем навигацию при активном бургере */
   .nav-menu.active {
     left: 0;
   }
@@ -264,13 +281,14 @@
   }
 }
 
+/* Маленькие телефоны */
 @media (max-width: 480px) {
   .header {
-    height: 50px;
+    height: 55px;
   }
   
   .header-container {
-    height: 50px;
+    height: 55px;
     padding: 0 15px;
   }
   
@@ -279,17 +297,53 @@
   }
   
   .logo-text {
-    font-size: 14px;
+    font-size: 16px;
     letter-spacing: 1px;
   }
   
+  .menu-toggle {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .menu-toggle span {
+    width: 22px;
+    margin: 5px auto;
+  }
+  
   .nav-menu {
-    top: 50px;
-    max-height: calc(100vh - 50px);
+    top: 55px;
+    max-height: calc(100vh - 55px);
+    padding: 20px 0;
   }
   
   .nav-link {
-    padding: 15px;
+    padding: 16px 15px;
     font-size: 16px;
+  }
+}
+
+/* Очень маленькие телефоны */
+@media (max-width: 360px) {
+  .logo-text {
+    font-size: 14px;
+    max-width: 130px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .logo-image {
+    height: 30px;
+  }
+  
+  .menu-toggle {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .nav-link {
+    padding: 14px 12px;
+    font-size: 15px;
   }
 }
