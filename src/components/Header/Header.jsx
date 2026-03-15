@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Header.css';
 
-const Header = ({ cartCount, onCartClick }) => {
+const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
 
@@ -21,26 +21,19 @@ const Header = ({ cartCount, onCartClick }) => {
     <header className="header">
       <div className="header-container">
         <Link to="/" className="logo">
-          <span className="logo-icon">🍰</span>
-          <span className="logo-text">Тортики от Кымбат</span>
+          <img src="/logo.png" alt="TORTY OT KYMBATA" className="logo-image" />
+          <span className="logo-text">TORTY OT KYMBATA</span>
         </Link>
 
-        <div className="header-right">
-          <button className="cart-button" onClick={onCartClick}>
-            🛒
-            {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
-          </button>
-
-          <button 
-            className={`menu-toggle ${isMenuOpen ? 'active' : ''}`} 
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Меню"
-          >
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-        </div>
+        <button 
+          className={`menu-toggle ${isMenuOpen ? 'active' : ''}`} 
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label="Меню"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
 
         <nav className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
           {navLinks.map(link => (
@@ -48,6 +41,7 @@ const Header = ({ cartCount, onCartClick }) => {
               key={link.path} 
               to={link.path} 
               className={`nav-link ${location.pathname === link.path ? 'active' : ''}`}
+              onClick={() => setIsMenuOpen(false)}
             >
               {link.name}
             </Link>

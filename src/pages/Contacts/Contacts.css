@@ -1,176 +1,370 @@
 .contacts-page {
-  padding: 20px 0;
+  padding-bottom: 60px;
 }
 
-.contacts-content {
-  max-width: 600px;
-  margin: 0 auto;
+/* Герой секция */
+.contacts-hero {
+  background: linear-gradient(135deg, #fff5f5 0%, #ffe3e3 100%);
+  padding: 80px 0;
+  margin-bottom: 60px;
+  position: relative;
+  overflow: hidden;
 }
 
-.contact-info,
-.social-section {
-  background: white;
-  padding: 25px;
-  border-radius: 25px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-  margin-bottom: 20px;
+.contacts-hero::before {
+  content: '📞';
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 120px;
+  opacity: 0.1;
+  transform: rotate(-15deg);
 }
 
-.contact-info h2,
-.social-section h2 {
-  color: var(--dark);
-  margin-bottom: 20px;
-  font-size: 22px;
+.contacts-hero::after {
+  content: '💬';
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  font-size: 120px;
+  opacity: 0.1;
+  transform: rotate(15deg);
+}
+
+.contacts-hero-title {
   text-align: center;
-  font-weight: 600;
-}
-
-.contact-item {
+  font-size: 48px;
+  color: #ff6b6b;
+  margin-bottom: 20px;
+  font-weight: 700;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 15px 0;
-  border-bottom: 1px solid var(--gray);
-}
-
-.contact-item:last-child {
-  border-bottom: none;
-}
-
-.contact-label {
-  font-weight: 600;
-  color: var(--dark);
-  font-size: 15px;
-}
-
-.contact-item span:last-child {
-  color: var(--text-light);
-  font-size: 15px;
-}
-
-.social-buttons {
-  display: flex;
   justify-content: center;
   gap: 15px;
-  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
 }
 
-.social-btn {
-  padding: 12px 25px;
-  background: var(--light);
-  color: var(--dark);
-  text-decoration: none;
-  border-radius: 30px;
-  transition: all 0.2s;
-  border: 2px solid transparent;
-  font-size: 15px;
-  font-weight: 500;
-  flex: 1;
+.hero-icon {
+  font-size: 56px;
+  animation: bounce 2s infinite ease-in-out;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.contacts-hero-text {
   text-align: center;
-  min-width: 120px;
+  font-size: 20px;
+  color: #636e72;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  line-height: 1.6;
 }
 
-.social-btn:active {
-  background: var(--primary);
+/* Сетка контактов */
+.contacts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 60px;
+}
+
+/* Левая колонка */
+.contacts-info {
+  background: white;
+  border-radius: 40px;
+  padding: 40px;
+  box-shadow: 0 20px 40px rgba(255, 107, 107, 0.1);
+  border: 1px solid rgba(255, 107, 107, 0.1);
+}
+
+.info-title {
+  font-size: 32px;
+  color: #2d3436;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-weight: 600;
+}
+
+.title-icon {
+  font-size: 38px;
+  background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+  padding: 12px;
+  border-radius: 50%;
   color: white;
-  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3);
 }
 
-/* Мобильная версия */
+.info-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.info-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  border: 1px solid #e9ecef;
+}
+
+.info-card:hover {
+  transform: translateX(10px);
+  background: white;
+  border-color: #ff6b6b;
+  box-shadow: 0 10px 25px rgba(255, 107, 107, 0.2);
+}
+
+.card-icon-wrapper {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #fff5f5, #ffe3e3);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.info-card:hover .card-icon-wrapper {
+  background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+  transform: scale(1.1);
+}
+
+.card-icon {
+  font-size: 30px;
+  transition: all 0.3s ease;
+}
+
+.info-card:hover .card-icon {
+  color: white;
+}
+
+.card-content {
+  flex: 1;
+}
+
+.card-title {
+  font-size: 18px;
+  color: #2d3436;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.card-link {
+  display: block;
+  color: #ff6b6b;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 5px;
+  transition: color 0.3s ease;
+}
+
+.card-link:hover {
+  color: #ff5252;
+  text-decoration: underline;
+}
+
+.card-text {
+  color: #2d3436;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+/* Правая колонка */
+.contacts-social {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.contacts-social .info-card {
+  height: 100%;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Нижняя секция */
+.contacts-bottom {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+.bottom-card {
+  background: white;
+  padding: 25px;
+  border-radius: 30px;
+  box-shadow: 0 15px 35px rgba(255, 107, 107, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 107, 107, 0.1);
+}
+
+.bottom-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 50px rgba(255, 107, 107, 0.2);
+  border-color: rgba(255, 107, 107, 0.3);
+}
+
+.bottom-icon {
+  font-size: 36px;
+  background: linear-gradient(135deg, #fff5f5, #ffe3e3);
+  width: 70px;
+  height: 70px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.bottom-card:hover .bottom-icon {
+  background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+  color: white;
+  transform: scale(1.1) rotate(5deg);
+}
+
+.bottom-content h4 {
+  color: #2d3436;
+  font-size: 16px;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.bottom-content p {
+  color: #636e72;
+  font-size: 14px;
+}
+
+/* Планшеты */
+@media (max-width: 1024px) {
+  .contacts-grid {
+    gap: 30px;
+  }
+  
+  .contacts-info {
+    padding: 30px;
+  }
+}
+
 @media (max-width: 768px) {
-  .contact-info,
-  .social-section {
-    padding: 20px;
-    border-radius: 20px;
+  .contacts-hero {
+    padding: 60px 0;
   }
   
-  .contact-info h2,
-  .social-section h2 {
-    font-size: 20px;
-    margin-bottom: 15px;
+  .contacts-hero-title {
+    font-size: 42px;
   }
   
-  .contact-item {
-    padding: 12px 0;
+  .hero-icon {
+    font-size: 48px;
   }
   
-  .contact-label {
-    font-size: 14px;
+  .contacts-hero-text {
+    font-size: 18px;
   }
   
-  .contact-item span:last-child {
-    font-size: 14px;
+  .contacts-grid {
+    grid-template-columns: 1fr;
   }
   
-  .social-buttons {
-    gap: 10px;
+  .info-title {
+    font-size: 28px;
   }
   
-  .social-btn {
-    padding: 10px 20px;
-    font-size: 14px;
-    min-width: 100px;
+  .contacts-bottom {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 480px) {
-  .contact-info,
-  .social-section {
-    padding: 18px;
-    border-radius: 18px;
-    margin-bottom: 15px;
-  }
-  
-  .contact-info h2,
-  .social-section h2 {
-    font-size: 18px;
-    margin-bottom: 12px;
-  }
-  
-  .contact-item {
+  .contacts-hero-title {
+    font-size: 32px;
     flex-direction: column;
+  }
+  
+  .hero-icon {
+    font-size: 42px;
+  }
+  
+  .contacts-hero-text {
+    font-size: 16px;
+  }
+  
+  .info-title {
+    font-size: 26px;
+    justify-content: center;
+  }
+  
+  .title-icon {
+    font-size: 32px;
+    padding: 10px;
+  }
+  
+  .info-card {
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    gap: 5px;
-    padding: 10px 0;
   }
   
-  .contact-label {
-    font-size: 14px;
+  .card-icon-wrapper {
+    margin-bottom: 10px;
   }
   
-  .contact-item span:last-child {
-    font-size: 14px;
+  .info-card:hover {
+    transform: translateY(-5px);
   }
   
-  .social-buttons {
-    flex-direction: column;
+  .contacts-bottom {
+    grid-template-columns: 1fr;
   }
   
-  .social-btn {
-    padding: 12px 20px;
-    font-size: 15px;
-    min-width: auto;
+  .bottom-card {
+    padding: 20px;
+  }
+  
+  .bottom-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 30px;
   }
 }
 
 @media (max-width: 360px) {
-  .contact-info,
-  .social-section {
-    padding: 15px;
+  .contacts-hero-title {
+    font-size: 28px;
   }
   
-  .contact-info h2,
-  .social-section h2 {
-    font-size: 17px;
+  .info-title {
+    font-size: 24px;
   }
   
-  .contact-label,
-  .contact-item span:last-child {
-    font-size: 13px;
+  .card-title {
+    font-size: 16px;
   }
   
-  .social-btn {
-    padding: 10px 18px;
+  .card-link {
+    font-size: 16px;
+  }
+  
+  .card-text {
     font-size: 14px;
   }
 }

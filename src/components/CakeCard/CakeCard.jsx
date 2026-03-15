@@ -1,174 +1,184 @@
 import React, { useState } from 'react';
 import './CakeCard.css';
 
-const CakeCard = ({ cake, addToCart }) => {
+const CakeCard = ({ cake }) => {
   const [imageError, setImageError] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
   const fallbackImage = 'https://img.freepik.com/free-photo/delicious-cake-dessert_144627-12345.jpg';
 
-  // Разбиваем описание на состав
   const ingredients = cake.description.split(',').map(item => item.trim());
 
-  // Проверяем тип товара по категории
   const isRoll = cake.category === 'rulet';
   const isCupcake = cake.category === 'cupcake';
   const isTrifle = cake.category === 'trifle';
   const isTort = cake.category === 'tort';
 
-  const handleAddToCart = (e) => {
-    e.stopPropagation();
-    addToCart(cake);
-  };
-
   return (
     <>
-      <div className="cake-card">
-        {cake.popular && <span className="cake-badge">🔥 Хит</span>}
+      <div className="cake-card premium-card" onClick={() => setShowModal(true)}>
+        {cake.popular && (
+          <div className="premium-badge">
+            <span className="badge-icon">👑</span>
+            <span className="badge-text">ХИТ ПРОДАЖ</span>
+            <span className="badge-icon">👑</span>
+          </div>
+        )}
         
-        <div className="cake-image" onClick={() => setShowModal(true)}>
-          {!imageLoaded && !imageError && <div className="image-loader"></div>}
+        <div className="premium-image-wrapper">
+          {!imageLoaded && !imageError && <div className="premium-skeleton"></div>}
           <img 
             src={imageError ? fallbackImage : cake.image} 
             alt={cake.name}
+            className={`premium-image ${imageLoaded ? 'loaded' : ''}`}
             onError={() => setImageError(true)}
             onLoad={() => setImageLoaded(true)}
             style={{ display: imageLoaded ? 'block' : 'none' }}
           />
           {imageError && (
-            <div className="image-error">🍰</div>
+            <div className="premium-error">
+              <span>👑</span>
+            </div>
           )}
-          <div className="image-overlay">
-            <span className="overlay-text">🔍 Быстрый просмотр</span>
+          <div className="premium-overlay">
+            <span className="premium-overlay-text">✨ ПОДРОБНЕЕ ✨</span>
           </div>
+          <div className="premium-corner top-left"></div>
+          <div className="premium-corner top-right"></div>
+          <div className="premium-corner bottom-left"></div>
+          <div className="premium-corner bottom-right"></div>
         </div>
         
-        <div className="cake-content">
-          <h3 className="cake-title">{cake.name}</h3>
-          <p className="cake-description">{cake.description.substring(0, 60)}...</p>
+        <div className="premium-content">
+          <h3 className="premium-title">{cake.name}</h3>
+          <p className="premium-description">{cake.description.substring(0, 60)}...</p>
           
-          <div className="cake-details">
-            <span className="cake-weight">⚖️ {cake.weight}</span>
-            <span className="cake-price">{cake.price} ₽</span>
+          <div className="premium-info">
+            <div className="premium-weight">
+              <span className="info-icon">⚖️</span>
+              <span className="info-text">{cake.weight}</span>
+            </div>
+            <div className="premium-price">
+              <span className="price-currency">₽</span>
+              <span className="price-value">{cake.price.toLocaleString()}</span>
+            </div>
           </div>
           
-          {/* Информация о минимальном заказе */}
           {(isCupcake || isTrifle) && (
-            <div className="min-order-badge">
-              <span className="min-order-icon">📦</span>
-              <span className="min-order-text">Мин. заказ: 8 шт</span>
+            <div className="premium-order-badge">
+              <span className="order-icon">📦</span>
+              <div className="order-info">
+                <span className="order-min">МИН. ЗАКАЗ: 8 ШТ</span>
+                <span className="order-price">ЦЕНА ЗА 8 ШТ: {isCupcake ? '1440' : '2000'} ₽</span>
+              </div>
             </div>
           )}
           
-          {/* Цена за 8 штук для капкейков и трайфлов */}
-          {(isCupcake || isTrifle) && (
-            <div className="price-for-8">
-              <span className="price-8-label">Цена за 8 шт:</span>
-              <span className="price-8-value">
-                {isCupcake ? '1440' : '2000'} ₽
-              </span>
-            </div>
-          )}
-          
-          {/* Показываем декор только для тортов */}
           {isTort && (
-            <div className="decor-badge">
+            <div className="premium-decor-badge">
               <span className="decor-icon">🎨</span>
-              <span className="decor-text">Декор отдельно</span>
+              <span className="decor-text">ДЕКОР ОТДЕЛЬНО</span>
             </div>
           )}
-
-          {/* Кнопка добавления в корзину */}
-          <button 
-            className="add-to-cart-btn"
-            onClick={handleAddToCart}
-          >
-            <span className="btn-icon">🛒</span>
-            <span className="btn-text">В корзину</span>
-          </button>
         </div>
       </div>
 
-      {/* Модальное окно */}
+      {/* ПРЕМИУМ МОДАЛКА */}
       {showModal && (
-        <div className="modal-overlay" onClick={() => setShowModal(false)}>
-          <div className="modal-content" onClick={e => e.stopPropagation()}>
-            <button className="modal-close" onClick={() => setShowModal(false)}>×</button>
+        <div className="premium-modal-overlay" onClick={() => setShowModal(false)}>
+          <div className="premium-modal-content" onClick={e => e.stopPropagation()}>
+            <button className="premium-modal-close" onClick={() => setShowModal(false)}>×</button>
             
-            <div className="modal-header">
+            <div className="premium-modal-image-container">
               <img 
                 src={imageError ? fallbackImage : cake.image} 
                 alt={cake.name}
-                className="modal-image"
+                className="premium-modal-image"
               />
-              <h2>{cake.name}</h2>
-              {cake.popular && <span className="modal-popular">🔥 Хит продаж</span>}
+              {cake.popular && (
+                <div className="premium-modal-badge">
+                  <span>👑</span>
+                  <span>ХИТ</span>
+                  <span>👑</span>
+                </div>
+              )}
+              <div className="premium-modal-corner tl"></div>
+              <div className="premium-modal-corner tr"></div>
+              <div className="premium-modal-corner bl"></div>
+              <div className="premium-modal-corner br"></div>
             </div>
             
-            <div className="modal-body">
-              <div className="modal-section">
-                <h3>📋 Состав:</h3>
-                <ul className="ingredients-list">
+            <div className="premium-modal-inner">
+              <h2 className="premium-modal-title">{cake.name}</h2>
+              
+              <div className="premium-modal-section">
+                <h3 className="premium-modal-section-title">
+                  <span>📋</span>
+                  <span>СОСТАВ</span>
+                  <span>📋</span>
+                </h3>
+                <ul className="premium-ingredients-list">
                   {ingredients.map((ingredient, index) => (
-                    <li key={index}>• {ingredient}</li>
+                    <li key={index}>
+                      <span className="ingredient-bullet">✦</span>
+                      {ingredient}
+                    </li>
                   ))}
                 </ul>
               </div>
 
-              <div className="modal-section">
-                <h3>⚖️ Характеристики:</h3>
-                <div className="modal-info-grid">
-                  <div className="modal-info-item">
-                    <span className="info-label">Вес:</span>
-                    <span className="info-value">{cake.weight}</span>
-                  </div>
-                  <div className="modal-info-item">
-                    <span className="info-label">Цена:</span>
-                    <span className="info-value price">{cake.price} ₽</span>
-                  </div>
+              <div className="premium-modal-info-grid">
+                <div className="premium-modal-info-item">
+                  <span className="premium-info-label">ВЕС</span>
+                  <span className="premium-info-value">{cake.weight}</span>
                 </div>
-                {cake.note && <p className="cake-note-modal">{cake.note}</p>}
+                <div className="premium-modal-info-item">
+                  <span className="premium-info-label">ЦЕНА</span>
+                  <span className="premium-info-value premium-price">{cake.price} ₽</span>
+                </div>
               </div>
 
-              {/* Информация о минимальном заказе в модалке */}
               {(isCupcake || isTrifle) && (
-                <div className="modal-section order-info">
-                  <h3>📦 Условия заказа:</h3>
-                  <div className="order-info-grid">
-                    <div className="order-info-item">
-                      <span className="order-info-label">Минимальный заказ:</span>
-                      <span className="order-info-value highlight">8 штук</span>
+                <div className="premium-modal-order-info">
+                  <h3 className="premium-modal-section-title">
+                    <span>📦</span>
+                    <span>УСЛОВИЯ ЗАКАЗА</span>
+                    <span>📦</span>
+                  </h3>
+                  <div className="premium-order-details">
+                    <div className="premium-order-detail">
+                      <span>МИНИМАЛЬНЫЙ ЗАКАЗ:</span>
+                      <strong>8 ШТУК</strong>
                     </div>
-                    <div className="order-info-item">
-                      <span className="order-info-label">Цена за 8 шт:</span>
-                      <span className="order-info-value price">
-                        {isCupcake ? '1440' : '2000'} ₽
-                      </span>
+                    <div className="premium-order-detail">
+                      <span>ЦЕНА ЗА 8 ШТ:</span>
+                      <strong className="premium-price">{isCupcake ? '1440' : '2000'} ₽</strong>
                     </div>
                   </div>
-                  <p className="order-note">Можно выбрать разные вкусы</p>
+                  <p className="premium-order-note">✨ МОЖНО ВЫБРАТЬ РАЗНЫЕ ВКУСЫ ✨</p>
                 </div>
               )}
 
-              {/* Информация о декоре для тортов */}
               {isTort && (
-                <div className="modal-section decor-info-section">
-                  <h3>🎨 Декор:</h3>
-                  <p className="decor-info">
-                    Декор торта оплачивается отдельно. Вы можете выбрать любой декор из нашего каталога или заказать индивидуальный.
+                <div className="premium-modal-decor-info">
+                  <h3 className="premium-modal-section-title">
+                    <span>🎨</span>
+                    <span>ДЕКОР</span>
+                    <span>🎨</span>
+                  </h3>
+                  <p className="premium-decor-text">
+                    ДЕКОР ТОРТА ОПЛАЧИВАЕТСЯ ОТДЕЛЬНО. 
+                    ВЫ МОЖЕТЕ ВЫБРАТЬ ЛЮБОЙ ДЕКОР ИЗ НАШЕГО КАТАЛОГА 
+                    ИЛИ ЗАКАЗАТЬ ИНДИВИДУАЛЬНЫЙ.
                   </p>
                 </div>
               )}
             </div>
 
-            <div className="modal-footer">
-              <button className="modal-add-to-cart-btn" onClick={handleAddToCart}>
-                <span className="btn-icon">🛒</span>
-                <span className="btn-text">Добавить в корзину</span>
-              </button>
-              <button className="modal-close-btn" onClick={() => setShowModal(false)}>
-                Закрыть
+            <div className="premium-modal-footer">
+              <button className="premium-modal-btn" onClick={() => setShowModal(false)}>
+                ЗАКРЫТЬ
               </button>
             </div>
           </div>

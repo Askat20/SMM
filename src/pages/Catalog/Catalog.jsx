@@ -17,7 +17,7 @@ const cakes = [
   {
     id: 2,
     name: 'Сникерс',
-    description: 'Шоколадные коржи, соленая карамель, арахис, внутренний крем: творожный сыр на сливках (нежный), верхний крем: творожный сыр на масле (плотный)',
+    description: 'Шоколадные коржи, соленая карамель, арахис, творожный сыр на сливках, творожный сыр на масле',
     price: 3000,
     image: 'https://kubnews.ru/upload/dev2fun.imagecompress/webp/resize_cache/iblock/a04/1200_800_2/0l3iwxxxh511qkyjon5h2jsj7dg004qn.webp',
     weight: '1.5 кг',
@@ -27,7 +27,7 @@ const cakes = [
   {
     id: 3,
     name: 'Ванильный торт',
-    description: 'Ванильные коржи, внутренний крем: творожный сыр на сливках (нежный), верхний крем: творожный сыр на масле (плотный)',
+    description: 'Ванильные коржи, творожный сыр на сливках, творожный сыр на масле',
     price: 2700,
     image: 'https://studio.jvcompany.ru/system/products/0000/0112/112-mcard.jpg?1614015968',
     weight: '1.5 кг',
@@ -37,7 +37,7 @@ const cakes = [
   {
     id: 4,
     name: 'Шоколадный торт',
-    description: 'Шоколадные коржи, внутренний крем - шоколадный, верхний крем - творожный сыр на сливках',
+    description: 'Шоколадные коржи, шоколадный крем, творожный сыр на сливках',
     price: 3000,
     image: 'https://cdn-s-static.catery.ru/storage/menu/item/3/6/3/7/363729/preview_preview_image-qbXEfCvO1KLdOV-jD55QdNYmZ7gyxSXskw.jpg',
     weight: '1.5 кг',
@@ -47,7 +47,7 @@ const cakes = [
   {
     id: 5,
     name: 'Красный бархат',
-    description: 'Красный бисквит, внутренний крем - творожный сыр на сливках, верхний крем - творожный сыр на масле',
+    description: 'Красный бисквит, творожный сыр на сливках, творожный сыр на масле',
     price: 3000,
     image: 'https://aleksandratort.ru/wp-content/uploads/2023/02/krasn_barhat.jpg',
     weight: '1.5 кг',
@@ -70,62 +70,57 @@ const cakes = [
   // ===== КАПКЕЙКИ =====
   {
     id: 7,
-    name: 'Капкейки (ванильные и шоколадные)',
-    description: 'Ванильные и шоколадные бисквиты, крем из творожного сыра: внутри - на сливках (нежный), сверху - на масле (плотный)',
+    name: 'Капкейки ванильные и шоколадные',
+    description: 'Ванильные и шоколадные бисквиты, творожный сыр на сливках, творожный сыр на масле',
     price: 180,
     image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGVs5v68QburQ4EDv4XfYYdSDXpHvWqW0A-g&s',
     weight: '1 шт',
     popular: true,
     minOrder: 8,
     priceFor8: 1440,
-    note: 'Можно выбрать любые вкусы в ассортименте',
     category: 'cupcake'
   },
   
   // ===== ТРАЙФЛЫ =====
   {
-    id: 10,
+    id: 8,
     name: 'Трайфл Сникерс',
-    description: 'Шоколадный корж, соленая карамель, арахис, нежный сливочный крем',
+    description: 'Шоколадный корж, соленая карамель, арахис, сливочный крем',
     price: 250,
     image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3s09l7V5ayNWuVqYi4ieDN6hwz7qBEZ3Ejg&s',
-    weight: '150-170 гр',
+    weight: '170 гр',
     popular: true,
     minOrder: 8,
     priceFor8: 2000,
-    note: 'Вкус как у любимого батончика',
     category: 'trifle'
   },
   {
-    id: 11,
+    id: 9,
     name: 'Трайфл Красный бархат',
-    description: 'Мягкий красный корж, сливочно-сырный крем, шоколадная крошка',
+    description: 'Красный корж, сливочно-сырный крем, шоколадная крошка',
     price: 250,
     image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSls_qCXDCpjd0-zFTgSt3Ht5ur94YgLhH3eA&s',
-    weight: '150-170 гр',
+    weight: '170 гр',
     popular: true,
     minOrder: 8,
     priceFor8: 2000,
-    note: 'Классический вкус в новом формате',
     category: 'trifle'
   },
   {
-    id: 12,
+    id: 10,
     name: 'Трайфл Ванильный с бананом',
-    description: 'Мягкий ванильный бисквит, карамель, свежий банан, сливочный крем',
+    description: 'Ванильный бисквит, карамель, банан, сливочный крем',
     price: 250,
     image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbR9ZB42cQT7isnEyJmE9VMbZMBtDlB1kaCw&sg',
-    weight: '150-170 гр',
+    weight: '170 гр',
     popular: true,
     minOrder: 8,
     priceFor8: 2000,
-    note: 'Нежное сочетание ванили и банана',
     category: 'trifle'
   }
 ];
 
-const Catalog = ({ addToCart }) => {
-  // Фильтруем товары по категориям
+const Catalog = () => {
   const torty = cakes.filter(cake => cake.category === 'tort');
   const rulet = cakes.filter(cake => cake.category === 'rulet');
   const kapkeyki = cakes.filter(cake => cake.category === 'cupcake');
@@ -134,70 +129,66 @@ const Catalog = ({ addToCart }) => {
   return (
     <div className="catalog-page">
       <div className="container">
-        <h1 className="section-title">Наши тортики</h1>
+        <h1 className="section-title">НАШИ ТОРТИКИ</h1>
 
-        {/* ТОРТЫ */}
         {torty.length > 0 && (
-          <>
-            <h2 className="category-title">🍰 Торты</h2>
-            <div className="catalog-grid">
+          <div className="premium-category">
+            <h2 className="category-title">
+              <span className="category-icon">🍰</span>
+              <span>ТОРТЫ</span>
+              <span className="category-icon">🍰</span>
+            </h2>
+            <div className="premium-grid">
               {torty.map(cake => (
-                <CakeCard 
-                  key={cake.id} 
-                  cake={cake} 
-                  addToCart={addToCart}
-                />
+                <CakeCard key={cake.id} cake={cake} />
               ))}
             </div>
-          </>
+          </div>
         )}
 
-        {/* РУЛЕТ */}
         {rulet.length > 0 && (
-          <>
-            <h2 className="category-title">🍥 Рулеты</h2>
-            <div className="catalog-grid">
+          <div className="premium-category">
+            <h2 className="category-title">
+              <span className="category-icon">🍥</span>
+              <span>РУЛЕТЫ</span>
+              <span className="category-icon">🍥</span>
+            </h2>
+            <div className="premium-grid">
               {rulet.map(cake => (
-                <CakeCard 
-                  key={cake.id} 
-                  cake={cake} 
-                  addToCart={addToCart}
-                />
+                <CakeCard key={cake.id} cake={cake} />
               ))}
             </div>
-          </>
+          </div>
         )}
 
-        {/* КАПКЕЙКИ */}
         {kapkeyki.length > 0 && (
-          <>
-            <h2 className="category-title">🧁 Капкейки</h2>
-            <div className="catalog-grid">
+          <div className="premium-category">
+            <h2 className="category-title">
+              <span className="category-icon">🧁</span>
+              <span>КАПКЕЙКИ</span>
+              <span className="category-icon">🧁</span>
+            </h2>
+            <div className="premium-grid">
               {kapkeyki.map(cake => (
-                <CakeCard 
-                  key={cake.id} 
-                  cake={cake} 
-                  addToCart={addToCart}
-                />
+                <CakeCard key={cake.id} cake={cake} />
               ))}
             </div>
-          </>
+          </div>
         )}
 
-        {/* ТРАЙФЛЫ */}
         {trifly.length > 0 && (
-          <>
-            <h2 className="category-title">🍮 Трайфлы</h2>
-            <div className="catalog-grid">
+          <div className="premium-category">
+            <h2 className="category-title">
+              <span className="category-icon">🍮</span>
+              <span>ТРАЙФЛЫ</span>
+              <span className="category-icon">🍮</span>
+            </h2>
+            <div className="premium-grid">
               {trifly.map(cake => (
-                <CakeCard 
-                  key={cake.id} 
-                  cake={cake} 
-                  addToCart={addToCart}
-                />
+                <CakeCard key={cake.id} cake={cake} />
               ))}
             </div>
-          </>
+          </div>
         )}
       </div>
     </div>
