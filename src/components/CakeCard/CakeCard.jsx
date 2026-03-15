@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './CakeCard.css';
 
-const CakeCard = ({ cake }) => {
+const CakeCard = ({ cake, addToCart }) => {
   const [imageError, setImageError] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -11,9 +11,16 @@ const CakeCard = ({ cake }) => {
   // Разбиваем описание на состав
   const ingredients = cake.description.split(',').map(item => item.trim());
 
-  // Проверяем, является ли товар рулетом или капкейками (по цене или названию)
-  const isRoll = cake.price < 1000 || cake.name.toLowerCase().includes('рулет');
-  const isCupcake = cake.name.toLowerCase().includes('капкейк');
+  // Проверяем тип товара по категории
+  const isRoll = cake.category === 'rulet';
+  const isCupcake = cake.category === 'cupcake';
+  const isTrifle = cake.category === 'trifle';
+  const isTort = cake.category === 'tort';
+
+  const handleAddToCart = (e) => {
+    e.stopPropagation();
+    addToCart(cake);
+  };
 
   return (
     <>
@@ -33,28 +40,53 @@ const CakeCard = ({ cake }) => {
             <div className="image-error">🍰</div>
           )}
           <div className="image-overlay">
-            <span className="overlay-text">👆 Нажми для состава</span>
+            <span className="overlay-text">🔍 Быстрый просмотр</span>
           </div>
         </div>
         
         <div className="cake-content">
           <h3 className="cake-title">{cake.name}</h3>
-          <p className="cake-description">{cake.description.substring(0, 50)}...</p>
+          <p className="cake-description">{cake.description.substring(0, 60)}...</p>
           
           <div className="cake-details">
             <span className="cake-weight">⚖️ {cake.weight}</span>
             <span className="cake-price">{cake.price} ₽</span>
           </div>
           
-          {/* Информация о минимальном заказе для капкейков */}
-          {isCupcake && (
-            <p className="min-order-note">
-              📦 Мин. заказ: 8 шт (1440 ₽)
-            </p>
+          {/* Информация о минимальном заказе */}
+          {(isCupcake || isTrifle) && (
+            <div className="min-order-badge">
+              <span className="min-order-icon">📦</span>
+              <span className="min-order-text">Мин. заказ: 8 шт</span>
+            </div>
           )}
           
-          {/* Показываем декор только для тортов (не рулетов и не капкейков) */}
-          {!isRoll && !isCupcake && <p className="decor-note">🎂 Декор оплачивается отдельно</p>}
+          {/* Цена за 8 штук для капкейков и трайфлов */}
+          {(isCupcake || isTrifle) && (
+            <div className="price-for-8">
+              <span className="price-8-label">Цена за 8 шт:</span>
+              <span className="price-8-value">
+                {isCupcake ? '1440' : '2000'} ₽
+              </span>
+            </div>
+          )}
+          
+          {/* Показываем декор только для тортов */}
+          {isTort && (
+            <div className="decor-badge">
+              <span className="decor-icon">🎨</span>
+              <span className="decor-text">Декор отдельно</span>
+            </div>
+          )}
+
+          {/* Кнопка добавления в корзину */}
+          <button 
+            className="add-to-cart-btn"
+            onClick={handleAddToCart}
+          >
+            <span className="btn-icon">🛒</span>
+            <span className="btn-text">В корзину</span>
+          </button>
         </div>
       </div>
 
@@ -71,11 +103,12 @@ const CakeCard = ({ cake }) => {
                 className="modal-image"
               />
               <h2>{cake.name}</h2>
+              {cake.popular && <span className="modal-popular">🔥 Хит продаж</span>}
             </div>
             
             <div className="modal-body">
               <div className="modal-section">
-                <h3>📋 Полный состав:</h3>
+                <h3>📋 Состав:</h3>
                 <ul className="ingredients-list">
                   {ingredients.map((ingredient, index) => (
                     <li key={index}>• {ingredient}</li>
@@ -85,35 +118,56 @@ const CakeCard = ({ cake }) => {
 
               <div className="modal-section">
                 <h3>⚖️ Характеристики:</h3>
-                <div className="modal-info">
-                  <p><strong>Вес:</strong> <span>{cake.weight}</span></p>
-                  <p><strong>Цена:</strong> <span>{cake.price} ₽</span></p>
+                <div className="modal-info-grid">
+                  <div className="modal-info-item">
+                    <span className="info-label">Вес:</span>
+                    <span className="info-value">{cake.weight}</span>
+                  </div>
+                  <div className="modal-info-item">
+                    <span className="info-label">Цена:</span>
+                    <span className="info-value price">{cake.price} ₽</span>
+                  </div>
                 </div>
+                {cake.note && <p className="cake-note-modal">{cake.note}</p>}
               </div>
 
-              {/* Информация о минимальном заказе для капкейков */}
-              {isCupcake && (
-                <div className="modal-section">
+              {/* Информация о минимальном заказе в модалке */}
+              {(isCupcake || isTrifle) && (
+                <div className="modal-section order-info">
                   <h3>📦 Условия заказа:</h3>
-                  <p className="decor-info">
-                    • Минимальный заказ: <strong>8 штук</strong><br />
-                    • Цена за 8 штук: <strong>1440 ₽</strong><br />
-                    • Можно выбрать любые вкусы в ассортименте
-                  </p>
+                  <div className="order-info-grid">
+                    <div className="order-info-item">
+                      <span className="order-info-label">Минимальный заказ:</span>
+                      <span className="order-info-value highlight">8 штук</span>
+                    </div>
+                    <div className="order-info-item">
+                      <span className="order-info-label">Цена за 8 шт:</span>
+                      <span className="order-info-value price">
+                        {isCupcake ? '1440' : '2000'} ₽
+                      </span>
+                    </div>
+                  </div>
+                  <p className="order-note">Можно выбрать разные вкусы</p>
                 </div>
               )}
 
-              {/* Показываем информацию о декоре ТОЛЬКО для тортов */}
-              {!isRoll && !isCupcake && (
-                <div className="modal-section">
+              {/* Информация о декоре для тортов */}
+              {isTort && (
+                <div className="modal-section decor-info-section">
                   <h3>🎨 Декор:</h3>
-                  <p className="decor-info">Декор торта оплачивается отдельно. Вы можете выбрать любой декор из нашего каталога или заказать индивидуальный.</p>
+                  <p className="decor-info">
+                    Декор торта оплачивается отдельно. Вы можете выбрать любой декор из нашего каталога или заказать индивидуальный.
+                  </p>
                 </div>
               )}
             </div>
 
             <div className="modal-footer">
-              <button className="modal-btn" onClick={() => setShowModal(false)}>
+              <button className="modal-add-to-cart-btn" onClick={handleAddToCart}>
+                <span className="btn-icon">🛒</span>
+                <span className="btn-text">Добавить в корзину</span>
+              </button>
+              <button className="modal-close-btn" onClick={() => setShowModal(false)}>
                 Закрыть
               </button>
             </div>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Header.css';
 
-const Header = () => {
+const Header = ({ cartCount, onCartClick }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
 
@@ -13,7 +13,6 @@ const Header = () => {
     { path: '/contacts', name: 'Контакты' }
   ];
 
-  // Закрываем меню при смене страницы
   React.useEffect(() => {
     setIsMenuOpen(false);
   }, [location]);
@@ -22,18 +21,26 @@ const Header = () => {
     <header className="header">
       <div className="header-container">
         <Link to="/" className="logo">
-          🍰 Тортики
+          <span className="logo-icon">🍰</span>
+          <span className="logo-text">Тортики от Кымбат</span>
         </Link>
 
-        <button 
-          className={`menu-toggle ${isMenuOpen ? 'active' : ''}`} 
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label="Меню"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+        <div className="header-right">
+          <button className="cart-button" onClick={onCartClick}>
+            🛒
+            {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
+          </button>
+
+          <button 
+            className={`menu-toggle ${isMenuOpen ? 'active' : ''}`} 
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Меню"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
 
         <nav className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
           {navLinks.map(link => (
